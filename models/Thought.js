@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const ThoughtSchema = new Schema(
     {
@@ -13,7 +13,7 @@ const ThoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            // find getter method to formate the timestamp on query
+            // find getter method to format the timestamp on query
         },
 
         username: {
@@ -22,7 +22,7 @@ const ThoughtSchema = new Schema(
         },
 
         reactions: [reactionSchema],
-    },
+    },      
     {
         toJSON: {
             virtuals: true,
@@ -30,6 +30,30 @@ const ThoughtSchema = new Schema(
         id: false,
     }
 );
+
+const ReactionSchema = new Schema({
+    reactionId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
+    },
+
+    reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280,
+    },
+
+    username: {
+        type: String,
+        required: true,
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        // Find getter method to format timestamp on query
+    },
+});
 
 ThoughtSchema.virtual("reactionCount").get(function() {
     return this.reactions.length;
