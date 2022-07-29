@@ -1,1 +1,1 @@
-module.exports = {User, Thought };
+module.exports = { User, Thought };

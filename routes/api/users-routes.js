@@ -5,5 +5,7 @@ const {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    addToFriendList,
+    removeFromFriendList,
 }
