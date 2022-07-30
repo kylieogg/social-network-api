@@ -13,7 +13,7 @@ const ThoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            // timestamps: true
+            get: createdAtVal => dateFormat(createdAtVal)
         },
 
         username: {
@@ -51,7 +51,7 @@ const ReactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // Find getter method to format timestamp on query
+        get: createdAtVal => dateFormat(createdAtVal)
     },
 });
 
