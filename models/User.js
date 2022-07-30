@@ -4,12 +4,12 @@ const validateEmail = (email) => {
     return re.test(email);
   };
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
     username: {
         type: String,
         unique: true,
         required: "User name is required",
-        trim: true,
+        trim: true
     },
 
     email: {
@@ -18,34 +18,37 @@ const UserSchema = new Schema({
         unique: true,
         validate: [validateEmail, "Please enter a valid email address"],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please fill a valid email address"],
+        "Please fill a valid email address"]
 
     },
 
     thoughts: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Thought",
+            ref: "Thought"
         },
     ],
 
     friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: "User",
+            ref: "User"
         },
     ],
+},
 
+{
     toJSON: {
         virtuals: true,
+        getters: true
         },
-        id: false,   
+        id: false   
 });
 
-UserSchema.virtual("friendCount").get(function() {
-    return this.friend.length;
+userSchema.virtual("friendsCount").get(function() {
+    return this.friends.length;
 });
 
-const User = model("User", UserSchema);
+const User = model("User", userSchema);
 
 module.exports = User;
